@@ -1,21 +1,30 @@
 <?php
 
-namespace OZiTAG\Tager\Rbac\Admin;
+namespace OZiTAG\Tager\Backend\Rbac;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
-use Illuminate\Support\Facades\Route;
-use Laravel\Passport\Events\AccessTokenCreated;
-use Laravel\Passport\Token;
 use Laravel\Passport\Passport;
-use OZiTAG\Tager\Backend\Admin\Listeners\AdminAuthListener;
-use OZiTAG\Tager\Backend\Admin\Observers\TokenObserver;
-use OZiTAG\Tager\Backend\Auth\AuthServiceProvider;
+use OZiTAG\Tager\Backend\Rbac\Helpers\Permissions;
+use OZiTAG\Tager\Backend\Rbac\Helpers\Role;
+use OZiTAG\Tager\Backend\Rbac\Middlewares\CheckUserScopes;
+use OZiTAG\Tager\Backend\Rbac\Middlewares\UserRole;
 
 class RbacServiceProvider extends EventServiceProvider
 {
 
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/config.php', 'rbac'
+        );
+
+        $this->app->bind('permissions', function () {
+            return new Permissions();
+        });
+
+        $this->app->bind('role', function () {
+            return new Role();
+        });
     }
 
     /**
@@ -25,6 +34,7 @@ class RbacServiceProvider extends EventServiceProvider
      */
     public function boot()
     {
-
+        app('router')->aliasMiddleware('scopes', CheckUserScopes::class);
+        app('router')->aliasMiddleware('roles', UserRole::class);
     }
 }
