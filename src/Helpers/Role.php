@@ -13,14 +13,9 @@ class Role
      * @return \OZiTAG\Tager\Backend\Rbac\Roles\Role
      * @throws \Exception
      */
-    protected function getAppRole($userRoleId) : string {
-        $appRole = config('rbac.providers')[config('auth.guards.api.provider')]['roles'][$userRoleId] ?? (
-            config('rbac.providers.default.roles')[$userRoleId] ?? null
-        );
+    protected function getAppRole($userRoleId) : ?string {
 
-        if(!$appRole) {
-            throw new \Exception('Invalid RBAC Config');
-        }
+        $appRole = config('rbac.providers')[config('auth.guards.api.provider')][$userRoleId] ?? null;
 
         return $appRole;
     }
@@ -30,8 +25,9 @@ class Role
      * @return array
      * @throws \Exception
      */
-    public function getUserScopesByRole(User $user) : array {
-        return $this->getAppRole($user->role_id)::getScopes();
+    public function getUserScopes(User $user) : array {
+        $appRole = $this->getAppRole($user->role_id);
+        return $appRole ? $appRole::getScopes() : [];
     }
 
     /**
