@@ -36,5 +36,9 @@ class RbacServiceProvider extends EventServiceProvider
     {
         app('router')->aliasMiddleware('scopes', CheckUserScopes::class);
         app('router')->aliasMiddleware('roles', UserRole::class);
+
+        $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
     }
 }
