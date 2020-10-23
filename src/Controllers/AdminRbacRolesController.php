@@ -5,6 +5,7 @@ namespace OZiTAG\Tager\Backend\Rbac\Controllers;
 use OZiTAG\Tager\Backend\Crud\Controllers\CrudController;
 use OZiTAG\Tager\Backend\Rbac\Repositories\RoleRepository;
 use OZiTAG\Tager\Backend\Rbac\Requests\RoleRequest;
+use OZiTAG\Tager\Backend\Rbac\TagerScopes;
 
 class AdminRbacRolesController extends CrudController
 {
@@ -21,10 +22,15 @@ class AdminRbacRolesController extends CrudController
                 }
 
                 $scopes = explode(',', $item->scopes);
+
+                $scopes = array_filter($scopes, function($scope){
+                    return TagerScopes::isScopeExists($scope);
+                });
+
                 return array_map(function ($scope) {
                     return [
                         'value' => $scope,
-                        'label' => 'Название скоупа',
+                        'label' => TagerScopes::getScopeLabel($scope),
                     ];
                 }, $scopes);
             }
