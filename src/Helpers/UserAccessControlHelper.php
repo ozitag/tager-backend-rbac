@@ -11,14 +11,14 @@ class UserAccessControlHelper
      * @return array
      */
     public function getScopes(User $user) : array {
-        return $user->getScopesForRbac() ?? [];
+        return method_exists($user, 'getScopesForRbac') ? ($user->getScopesForRbac() ?? []) : [];
     }
     /**
      * @param User $user
      * @return array
      */
     public function getRoles(User $user) : array {
-        return $user->getRolesForRbac() ?? [];
+        return method_exists($user, 'getRolesForRbac') ? ($user->getRolesForRbac() ?? []) : [];
     }
 
     /**
