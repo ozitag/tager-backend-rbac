@@ -5,23 +5,23 @@ namespace OZiTAG\Tager\Backend\Rbac\Middlewares;
 use Illuminate\Auth\AuthenticationException;
 use OZiTAG\Tager\Backend\Rbac\Facades\UserAccessControl;
 
-class CheckUserScopes
+class OneOfUserRoles
 {
     /**
      * @param $request
      * @param $next
-     * @param array $scopes
+     * @param array $roles
      * @return array
      * @throws AuthenticationException
      */
-    public function handle($request, $next, ...$scopes)
+    public function handle($request, $next, ...$roles)
     {
         $user = $request->user();
         if (!$user) {
             throw new AuthenticationException;
         }
 
-        if(!UserAccessControl::checkUserScopes($scopes, $user)) {
+        if(!UserAccessControl::checkOneOfUserRoles($roles, $user)) {
             return response(['message' => 'Access denied'], 403);
         }
 
