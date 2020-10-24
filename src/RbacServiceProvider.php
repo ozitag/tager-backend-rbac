@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Rbac;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use OZiTAG\Tager\Backend\Rbac\Middlewares\CheckUserScopes;
 use OZiTAG\Tager\Backend\Rbac\Middlewares\ExceptUserRoles;
 use OZiTAG\Tager\Backend\Rbac\Middlewares\OneOfUserRoles;
