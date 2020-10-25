@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Rbac;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use OZiTAG\Tager\Backend\Rbac\Enums\RbacScope;
 use OZiTAG\Tager\Backend\Rbac\Middlewares\CheckUserScopes;
 use OZiTAG\Tager\Backend\Rbac\Middlewares\ExceptUserRoles;
 use OZiTAG\Tager\Backend\Rbac\Middlewares\OneOfUserRoles;
@@ -31,5 +32,10 @@ class RbacServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
+
+        TagerScopes::registerGroup('RBAC', [
+            RbacScope::ViewRoles => 'View roles list',
+            RbacScope::EditRoles => 'Edit roles',
+        ]);
     }
 }
