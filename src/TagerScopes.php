@@ -6,7 +6,7 @@ class TagerScopes
 {
     private static $scopes = [];
 
-    public static function register($scope, $label)
+    public static function register(string $scope, string $label)
     {
         if (!isset(self::$scopes['*'])) {
             self::$scopes['*'] = [
@@ -21,7 +21,7 @@ class TagerScopes
         ];
     }
 
-    public static function registerGroup($groupName, $scopes)
+    public static function registerGroup(string $groupName, array $scopes)
     {
         if (!isset(self::$scopes[$groupName])) {
 
@@ -45,11 +45,7 @@ class TagerScopes
         return self::$scopes;
     }
 
-    /**
-     * @param string $scope
-     * @return bool
-     */
-    public static function isScopeExists($scope)
+    public static function isScopeExists(string $scope): bool
     {
         foreach (self::$scopes as $group) {
             foreach ($group['scopes'] as $_scope) {
@@ -62,11 +58,7 @@ class TagerScopes
         return false;
     }
 
-    /**
-     * @param string $scope
-     * @return string|null
-     */
-    public static function getScopeLabel($scope)
+    public static function getScopeLabel(string $scope): ?string
     {
         foreach (self::$scopes as $group) {
             foreach ($group['scopes'] as $_scope) {

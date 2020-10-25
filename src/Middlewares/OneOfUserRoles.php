@@ -11,7 +11,7 @@ class OneOfUserRoles
      * @param $request
      * @param $next
      * @param array $roles
-     * @return array
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws AuthenticationException
      */
     public function handle($request, $next, ...$roles)

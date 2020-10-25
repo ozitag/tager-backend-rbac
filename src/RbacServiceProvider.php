@@ -11,12 +11,6 @@ use OZiTAG\Tager\Backend\Rbac\Middlewares\UserRoles;
 
 class RbacServiceProvider extends ServiceProvider
 {
-
-    public function register()
-    {
-
-    }
-
     /**
      * Bootstrap any application services.
      *

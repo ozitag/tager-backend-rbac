@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Rbac\Facades;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Facade;
 use OZiTAG\Tager\Backend\Rbac\Helpers\UserAccessControlHelper;
 
