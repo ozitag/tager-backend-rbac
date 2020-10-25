@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Rbac\Controllers;
 
 use OZiTAG\Tager\Backend\Crud\Controllers\CrudController;
+use OZiTAG\Tager\Backend\Rbac\Jobs\CheckIfCanDeleteRoleJob;
 use OZiTAG\Tager\Backend\Rbac\Repositories\RoleRepository;
 use OZiTAG\Tager\Backend\Rbac\Requests\RoleRequest;
 use OZiTAG\Tager\Backend\Rbac\TagerScopes;
@@ -16,14 +17,20 @@ class AdminRbacRolesController extends CrudController
         $this->setResourceFields([
             'id',
             'name',
+            'isSuperAdmin' => 'is_super_admin:boolean',
             'scopes' => function ($item) {
+
+                if ($item->is_super_admin) {
+                    return ['*'];
+                }
+
                 if (!$item->scopes) {
                     return [];
                 }
 
                 $scopes = explode(',', $item->scopes);
 
-                $scopes = array_filter($scopes, function($scope){
+                $scopes = array_filter($scopes, function ($scope) {
                     return TagerScopes::isScopeExists($scope);
                 });
 
@@ -45,5 +52,7 @@ class AdminRbacRolesController extends CrudController
                 }
             ]
         ]);
+
+        $this->setDeleteAction(CheckIfCanDeleteRoleJob::class);
     }
 }

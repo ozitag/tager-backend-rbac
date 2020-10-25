@@ -10,14 +10,17 @@ class UserAccessControlHelper
      * @param User $user
      * @return array
      */
-    public function getScopes(User $user) : array {
+    public function getScopes(User $user): array
+    {
         return method_exists($user, 'getScopesForRbac') ? ($user->getScopesForRbac() ?? []) : [];
     }
+
     /**
      * @param User $user
      * @return array
      */
-    public function getRoles(User $user) : array {
+    public function getRoles(User $user): array
+    {
         return method_exists($user, 'getRolesForRbac') ? ($user->getRolesForRbac() ?? []) : [];
     }
 
@@ -26,10 +29,11 @@ class UserAccessControlHelper
      * @param User $user
      * @return bool
      */
-    public function checkOneOfUserRoles(array $roleIds, User $user) {
+    public function checkOneOfUserRoles(array $roleIds, User $user)
+    {
         $roles = $this->getRoles($user);
         foreach ($roleIds as $roleId) {
-            if($this->checkUserRole($roleId, $user, $roles)) {
+            if ($this->checkUserRole($roleId, $user, $roles)) {
                 return true;
             }
         }
@@ -41,10 +45,11 @@ class UserAccessControlHelper
      * @param User $user
      * @return bool
      */
-    public function checkUserRoles(array $roleIds, User $user) {
+    public function checkUserRoles(array $roleIds, User $user)
+    {
         $roles = $this->getRoles($user);
         foreach ($roleIds as $roleId) {
-            if(!$this->checkUserRole($roleId, $user, $roles)) {
+            if (!$this->checkUserRole($roleId, $user, $roles)) {
                 return false;
             }
         }
@@ -57,7 +62,8 @@ class UserAccessControlHelper
      * @param array $userRoles
      * @return mixed
      */
-    public function checkUserRole(int $roleId, User $user, array $userRoles = []) {
+    public function checkUserRole(int $roleId, User $user, array $userRoles = [])
+    {
         return in_array($roleId, $userRoles ? $userRoles : $this->getRoles($user));
     }
 
@@ -65,7 +71,8 @@ class UserAccessControlHelper
      * @param $user
      * @return array
      */
-    public function getUserScopesTree(User $user) {
+    public function getUserScopesTree(User $user)
+    {
         return $this->buildUserScopesTree(
             [], array_map(fn($item) => explode('.', $item), $user->token()->scopes)
         );
@@ -76,10 +83,11 @@ class UserAccessControlHelper
      * @param $user
      * @return bool
      */
-    public function checkUserScopes(array $scopes, User $user) {
+    public function checkUserScopes(array $scopes, User $user)
+    {
         $userScopesTree = $this->getUserScopesTree($user);
         foreach ($scopes as $scope) {
-            if(!$this->checkUserScope($scope, $user, $userScopesTree)) {
+            if (!$this->checkUserScope($scope, $user, $userScopesTree)) {
                 return false;
             }
         }
@@ -92,8 +100,9 @@ class UserAccessControlHelper
      * @param array|null $userScopesTree
      * @return mixed
      */
-    public function checkUserScope(string $scope, User $user, array $userScopesTree = null) {
-        return $this->checkScope(explode('.', $scope),$userScopesTree ?? $this->getUserScopesTree($user)
+    public function checkUserScope(string $scope, User $user, array $userScopesTree = null)
+    {
+        return $this->checkScope(explode('.', $scope), $userScopesTree ?? $this->getUserScopesTree($user)
         );
     }
 
@@ -105,18 +114,19 @@ class UserAccessControlHelper
      * @param $userScopes
      * @return mixed
      */
-    protected function checkScope(array $needle, array $userScopes) {
-        if(!$needle) {
+    protected function checkScope(array $needle, array $userScopes)
+    {
+        if (!$needle) {
             return true;
         }
 
         $needlePart = array_shift($needle);
 
-        if(array_key_exists('*', $userScopes)) {
+        if (array_key_exists('*', $userScopes)) {
             return true;
         }
 
-        if(array_key_exists($needlePart, $userScopes)) {
+        if (array_key_exists($needlePart, $userScopes)) {
             return $this->checkScope($needle, $userScopes[$needlePart]);
         }
 
@@ -128,8 +138,9 @@ class UserAccessControlHelper
      * @param array $scopes
      * @return array
      */
-    protected function buildUserScopesTree(array $tree, array $scopes) {
-        if(!$scopes) {
+    protected function buildUserScopesTree(array $tree, array $scopes)
+    {
+        if (!$scopes) {
             return [];
         }
         foreach ($scopes as $parts) {
@@ -145,8 +156,9 @@ class UserAccessControlHelper
      * @param array $parts
      * @return array
      */
-    protected function addToTree(array $tree, array $parts) {
-        if(!$parts) {
+    protected function addToTree(array $tree, array $parts)
+    {
+        if (!$parts) {
             return [];
         }
         $part = array_shift($parts);

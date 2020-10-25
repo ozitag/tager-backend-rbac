@@ -5,6 +5,14 @@ namespace OZiTAG\Tager\Backend\Rbac\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class Role
+ * @package OZiTAG\Tager\Backend\Rbac\Models
+ *
+ * @property string $name
+ * @property string scopes
+ * @property bool $is_super_admin
+ */
 class Role extends Model
 {
     use SoftDeletes;

@@ -11,4 +11,9 @@ class RoleRepository extends EloquentRepository
     {
         parent::__construct($model);
     }
+
+    public function all()
+    {
+        return $this->model::query()->orderBy('is_super_admin', 'desc')->get();
+    }
 }
