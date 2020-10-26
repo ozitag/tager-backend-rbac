@@ -16,10 +16,10 @@ class AdminRbacScopesController extends Controller
         foreach ($scopes as $scopeGroup) {
             $result[] = [
                 'name' => $scopeGroup['name'],
-                'scopes' => array_map(function($item){
+                'scopes' => array_map(function ($item) {
                     return [
-                        'name' => $item['name'],
-                        'value' => $item['scope']
+                        'value' => $item['scope'],
+                        'label' => $item['name'],
                     ];
                 }, $scopeGroup['scopes'])
             ];
