@@ -70,4 +70,17 @@ class TagerScopes
 
         return null;
     }
+
+    public static function getScopeModule(string $scope): ?string
+    {
+        foreach (self::$scopes as $group) {
+            foreach ($group['scopes'] as $_scope) {
+                if ($_scope['scope'] == $scope) {
+                    return $group['name'];
+                }
+            }
+        }
+
+        return null;
+    }
 }

@@ -38,6 +38,7 @@ class AdminRbacRolesController extends CrudController
                     return [
                         'value' => $scope,
                         'label' => TagerScopes::getScopeLabel($scope),
+                        'module' => TagerScopes::getScopeModule($scope)
                     ];
                 }, $scopes);
             }
