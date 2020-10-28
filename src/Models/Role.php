@@ -26,4 +26,8 @@ class Role extends Model
     public $guarded = [
         'is_super_admin'
     ];
+
+    public static function getSuperAdminRoleId() : ?int {
+        return self::whereIsSuperAdmin(true)->first()->id ?? null;
+    }
 }
