@@ -11,7 +11,6 @@ Route::group(['prefix' => 'admin/rbac', 'middleware' => ['passport:administrator
 
     Route::group(['prefix' => 'roles', 'middleware' => [AccessControlMiddleware::scopes(RbacScope::ViewRoles)]], function () {
         Route::get('/', [AdminRbacRolesController::class, 'index']);
-        Route::get('count', [AdminRbacRolesController::class, 'count']);
         Route::get('{id}', [AdminRbacRolesController::class, 'view']);
 
         Route::group(['middleware' => [AccessControlMiddleware::scopes(RbacScope::EditRoles)]], function () {
