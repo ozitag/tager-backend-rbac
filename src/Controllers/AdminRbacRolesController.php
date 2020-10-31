@@ -46,7 +46,7 @@ class AdminRbacRolesController extends CrudController
             }
         ], true);
 
-        $this->setStoreAndUpdateAction(new StoreOrUpdateAction(RoleRequest::class, [
+        $this->setStoreAndUpdateAction(new StoreOrUpdateAction(RoleRequest::class, null, [
             'repository' => $repository,
             'fields' => [
                 'name',
