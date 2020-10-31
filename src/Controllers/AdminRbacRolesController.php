@@ -2,6 +2,8 @@
 
 namespace OZiTAG\Tager\Backend\Rbac\Controllers;
 
+use OZiTAG\Tager\Backend\Crud\Actions\DeleteAction;
+use OZiTAG\Tager\Backend\Crud\Actions\StoreOrUpdateAction;
 use OZiTAG\Tager\Backend\Crud\Controllers\CrudController;
 use OZiTAG\Tager\Backend\Rbac\Jobs\CheckIfCanDeleteRoleJob;
 use OZiTAG\Tager\Backend\Rbac\Repositories\RoleRepository;
@@ -44,7 +46,7 @@ class AdminRbacRolesController extends CrudController
             }
         ], true);
 
-        $this->setStoreAndUpdateAction(RoleRequest::class, [
+        $this->setStoreAndUpdateAction(new StoreOrUpdateAction(RoleRequest::class, [
             'repository' => $repository,
             'fields' => [
                 'name',
@@ -52,8 +54,8 @@ class AdminRbacRolesController extends CrudController
                     return $item ? implode(',', $item) : null;
                 }
             ]
-        ]);
+        ]));
 
-        $this->setDeleteAction(CheckIfCanDeleteRoleJob::class);
+        $this->setDeleteAction(new DeleteAction(CheckIfCanDeleteRoleJob::class));
     }
 }
