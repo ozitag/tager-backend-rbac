@@ -30,4 +30,13 @@ class Role extends Model
     public static function getSuperAdminRoleId() : ?int {
         return self::whereIsSuperAdmin(true)->first()->id ?? null;
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order', function ($builder) {
+            $builder->orderBy('is_super_admin', 'desc');
+        });
+    }
 }
