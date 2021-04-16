@@ -28,11 +28,11 @@ class RbacServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
-        TagerScopes::registerGroup(__('tager-rbac.scopes.group'), [
-            RbacScope::ViewRoles => __('tager-rbac.scopes.view_roles'),
-            RbacScope::CreateRoles => __('tager-rbac.scopes.create_roles'),
-            RbacScope::EditRoles => __('tager-rbac.scopes.edit_roles'),
-            RbacScope::DeleteRoles => __('tager-rbac.scopes.delete_roles'),
+        TagerScopes::registerGroup(__('tager-rbac::scopes.group'), [
+            RbacScope::ViewRoles => __('tager-rbac::scopes.view_roles'),
+            RbacScope::CreateRoles => __('tager-rbac::scopes.create_roles'),
+            RbacScope::EditRoles => __('tager-rbac::scopes.edit_roles'),
+            RbacScope::DeleteRoles => __('tager-rbac::scopes.delete_roles'),
         ]);
     }
 }
