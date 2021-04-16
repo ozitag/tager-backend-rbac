@@ -4,6 +4,7 @@ namespace OZiTAG\Tager\Backend\Rbac\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OZiTAG\Tager\Backend\Core\Models\TModel;
 
 /**
  * Class Role
@@ -13,9 +14,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string scopes
  * @property bool $is_super_admin
  */
-class Role extends Model
+class Role extends TModel
 {
     use SoftDeletes;
+
+    static $defaultOrder = 'is_super_admin desc';
 
     protected $table = 'tager_roles';
 
@@ -29,14 +32,5 @@ class Role extends Model
 
     public static function getSuperAdminRoleId() : ?int {
         return self::whereIsSuperAdmin(true)->first()->id ?? null;
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('order', function ($builder) {
-            $builder->orderBy('is_super_admin', 'desc');
-        });
     }
 }

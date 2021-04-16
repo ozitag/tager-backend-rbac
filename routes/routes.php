@@ -13,9 +13,15 @@ Route::group(['prefix' => 'admin/rbac', 'middleware' => ['passport:administrator
         Route::get('/', [AdminRbacRolesController::class, 'index']);
         Route::get('{id}', [AdminRbacRolesController::class, 'view']);
 
-        Route::group(['middleware' => [AccessControlMiddleware::scopes(RbacScope::EditRoles)]], function () {
+        Route::group(['middleware' => [AccessControlMiddleware::scopes(RbacScope::CreateRoles)]], function () {
             Route::post('/', [AdminRbacRolesController::class, 'store']);
+        });
+
+        Route::group(['middleware' => [AccessControlMiddleware::scopes(RbacScope::EditRoles)]], function () {
             Route::put('{id}', [AdminRbacRolesController::class, 'update']);
+        });
+
+        Route::group(['middleware' => [AccessControlMiddleware::scopes(RbacScope::DeleteRoles)]], function () {
             Route::delete('{id}', [AdminRbacRolesController::class, 'delete']);
         });
     });

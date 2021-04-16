@@ -23,13 +23,16 @@ class RbacServiceProvider extends ServiceProvider
         app('router')->aliasMiddleware('roles.all', UserRoles::class);
         app('router')->aliasMiddleware('roles.except', ExceptUserRoles::class);
 
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'tager-rbac');
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
-        TagerScopes::registerGroup('RBAC', [
-            RbacScope::ViewRoles => 'View roles list',
-            RbacScope::EditRoles => 'Edit roles',
+        TagerScopes::registerGroup(__('tager-rbac.scopes.group'), [
+            RbacScope::ViewRoles => __('tager-rbac.scopes.view_roles'),
+            RbacScope::CreateRoles => __('tager-rbac.scopes.create_roles'),
+            RbacScope::EditRoles => __('tager-rbac.scopes.edit_roles'),
+            RbacScope::DeleteRoles => __('tager-rbac.scopes.delete_roles'),
         ]);
     }
 }

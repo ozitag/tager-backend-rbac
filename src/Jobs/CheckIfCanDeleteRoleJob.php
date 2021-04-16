@@ -19,7 +19,7 @@ class CheckIfCanDeleteRoleJob extends Job
     public function handle()
     {
         if ($this->model->is_super_admin) {
-            throw new HttpException(403, 'Access Denied | You can not delete super admin role');
+            throw new HttpException(403, __('tager-rbac.errors.cant_delete_superadmin'));
         }
 
         event(new TagerRoleDeleted($this->model->id));
