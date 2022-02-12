@@ -4,10 +4,10 @@ namespace OZiTAG\Tager\Backend\Rbac\Enums;
 
 use OZiTAG\Tager\Backend\Core\Enums\Enum;
 
-final class RbacScope extends Enum
+enum RbacScope:string
 {
-    const ViewRoles = 'rbac.view-roles';
-    const CreateRoles = 'rbac.create-roles';
-    const EditRoles = 'rbac.edit-roles';
-    const DeleteRoles = 'rbac.delete-roles';
+    case ViewRoles = 'rbac.view-roles';
+    case CreateRoles = 'rbac.create-roles';
+    case EditRoles = 'rbac.edit-roles';
+    case DeleteRoles = 'rbac.delete-roles';
 }

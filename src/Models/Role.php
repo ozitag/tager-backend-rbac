@@ -18,7 +18,7 @@ class Role extends TModel
 {
     use SoftDeletes;
 
-    static $defaultOrder = 'is_super_admin desc';
+    static string $defaultOrder = 'is_super_admin desc';
 
     protected $table = 'tager_roles';
 
@@ -30,7 +30,8 @@ class Role extends TModel
         'is_super_admin'
     ];
 
-    public static function getSuperAdminRoleId() : ?int {
+    public static function getSuperAdminRoleId(): ?int
+    {
         return self::whereIsSuperAdmin(true)->first()->id ?? null;
     }
 }

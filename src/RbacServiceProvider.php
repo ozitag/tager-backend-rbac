@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Rbac;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use OZiTAG\Tager\Backend\Rbac\Enums\RbacScope;
 use OZiTAG\Tager\Backend\Rbac\Middlewares\CheckUserScopes;
 use OZiTAG\Tager\Backend\Rbac\Middlewares\ExceptUserRoles;
@@ -29,10 +29,10 @@ class RbacServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
         TagerScopes::registerGroup(__('tager-rbac::scopes.group'), [
-            RbacScope::ViewRoles => __('tager-rbac::scopes.view_roles'),
-            RbacScope::CreateRoles => __('tager-rbac::scopes.create_roles'),
-            RbacScope::EditRoles => __('tager-rbac::scopes.edit_roles'),
-            RbacScope::DeleteRoles => __('tager-rbac::scopes.delete_roles'),
+            RbacScope::ViewRoles->value => __('tager-rbac::scopes.view_roles'),
+            RbacScope::CreateRoles->value => __('tager-rbac::scopes.create_roles'),
+            RbacScope::EditRoles->value => __('tager-rbac::scopes.edit_roles'),
+            RbacScope::DeleteRoles->value => __('tager-rbac::scopes.delete_roles'),
         ]);
     }
 }
