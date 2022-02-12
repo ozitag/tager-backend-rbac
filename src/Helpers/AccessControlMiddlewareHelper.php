@@ -2,22 +2,40 @@
 
 namespace OZiTAG\Tager\Backend\Rbac\Helpers;
 
-class AccessControlMiddlewareHelper {
+class AccessControlMiddlewareHelper
+{
+    private function prepare(...$items): string
+    {
+        $result = [];
 
-    public function roles(...$ids) {
-        return 'roles:' . implode(',', $ids);
+        foreach ($items as $item) {
+            if (is_string($item)) {
+                $result[] = $item;
+            } else if ($item instanceof \BackedEnum) {
+                $result[] = $item->value;
+            }
+        }
+
+        return implode(',', $result);
     }
 
-    public function allRoles(...$ids) {
-        return 'roles.all:' . implode(',', $ids);
+    public function roles(...$ids): string
+    {
+        return 'roles:' . $this->prepare($ids);
     }
 
-    public function exceptRoles(...$ids) {
-        return 'roles.except:' . implode(',', $ids);
+    public function allRoles(...$ids): string
+    {
+        return 'roles.all:' . $this->prepare($ids);
     }
 
-    public function scopes(...$scopes) {
-        return 'scopes:' . implode(',', $scopes);
+    public function exceptRoles(...$ids): string
+    {
+        return 'roles.except:' . $this->prepare($ids);
     }
 
+    public function scopes(...$scopes): string
+    {
+        return 'scopes:' . $this->prepare($scopes);
+    }
 }

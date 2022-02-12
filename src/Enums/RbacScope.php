@@ -2,8 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\Rbac\Enums;
 
-use OZiTAG\Tager\Backend\Core\Enums\Enum;
-
 enum RbacScope:string
 {
     case ViewRoles = 'rbac.view-roles';
