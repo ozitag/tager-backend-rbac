@@ -4,7 +4,7 @@ namespace OZiTAG\Tager\Backend\Rbac\Helpers;
 
 class AccessControlMiddlewareHelper
 {
-    private function prepare(...$items): string
+    private function prepare($items): string
     {
         $result = [];
 
