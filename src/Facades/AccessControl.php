@@ -12,6 +12,7 @@ use OZiTAG\Tager\Backend\Rbac\Helpers\AccessControlHelper;
  * @method static bool is(User $user, int $roleId)
  * @method static bool isNot(User $user, int $roleId)
  * @method static bool can(User $user, ...$scopes)
+ * @method static bool isSuperAdmin(User $user)
  */
 class AccessControl extends Facade
 {

@@ -4,6 +4,7 @@ namespace OZiTAG\Tager\Backend\Rbac\Helpers;
 
 use OZiTAG\Tager\Backend\Rbac\Facades\UserAccessControl;
 use Illuminate\Foundation\Auth\User;
+use OZiTAG\Tager\Backend\Rbac\Models\Role;
 
 class AccessControlHelper
 {
@@ -20,5 +21,10 @@ class AccessControlHelper
     public function can(User $user, ...$scopes): bool
     {
         return UserAccessControl::checkUserScopes($scopes, $user);
+    }
+
+    public function isSuperAdmin(User $user): bool
+    {
+        return $this->is($user, Role::getSuperAdminRoleId());
     }
 }
