@@ -50,8 +50,8 @@ class AdminRbacRolesController extends CrudController
             'repository' => $repository,
             'fields' => [
                 'name',
-                'scopes' => function ($item) {
-                    return $item ? implode(',', $item) : null;
+                'scopes' => function (RoleRequest $request) {
+                    return $request->scopes ? implode(',', $request->scopes) : null;
                 }
             ]
         ]));

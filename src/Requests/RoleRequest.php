@@ -4,6 +4,9 @@ namespace OZiTAG\Tager\Backend\Rbac\Requests;
 
 use OZiTAG\Tager\Backend\Crud\Requests\CrudFormRequest;
 
+/**
+ * @property array $scopes
+ */
 class RoleRequest extends CrudFormRequest
 {
     public function rules()
