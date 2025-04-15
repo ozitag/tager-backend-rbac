@@ -18,7 +18,7 @@ class AddSuperAdminFlag extends Migration
             $table->boolean('is_super_admin')->default(false);
         });
 
-        DB::update('UPDATE tager_roles SET is_super_admin=1 where name ="Super Administrator"');
+        DB::table('tager_roles')->where('name', 'Super Administrator')->update(['is_super_admin' => true]);
     }
 
     /**
