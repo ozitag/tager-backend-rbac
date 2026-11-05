@@ -67,7 +67,7 @@ class UserAccessControlHelper
         return true;
     }
 
-    public function checkUserScope(string $scope, User $user, array $userScopesTree = null): bool
+    public function checkUserScope(string $scope, User $user, ?array $userScopesTree = null): bool
     {
         return $this->checkScope(
             explode('.', $scope),
